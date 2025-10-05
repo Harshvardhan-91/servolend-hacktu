@@ -73,7 +73,8 @@ const UserDashboard = () => {
   }
 
   const documentStats = getDocumentStats(dashboardData?.documents);
-  const riskLevel = getRiskLevel(dashboardData?.loanApplication?.eligibilityScore.toFixed(2) || 0);
+  const eligibilityScore = dashboardData?.loanApplication?.eligibilityScore || 0;
+  const riskLevel = getRiskLevel(typeof eligibilityScore === 'number' ? eligibilityScore : 0);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -82,7 +83,7 @@ const UserDashboard = () => {
         <StatCard
           icon={TrendingUp}
           label="Eligibility Score"
-          value={`${dashboardData?.loanApplication?.eligibilityScore.toFixed(2) || 0}%`}
+          value={`${(typeof eligibilityScore === 'number' ? eligibilityScore.toFixed(2) : '0.00')}%`}
           subValue="Predicted by ServoLend"
           color="bg-blue-500"
         />

@@ -147,7 +147,8 @@ process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
   // Log the error and cleanly shut down the server
   server.close(() => {
-    throw new Error('Server shutdown due to uncaught exception: ' + err.message);
+    console.log('Server closed due to uncaught exception');
+    process.exit(1);
   });
 });
 
@@ -156,7 +157,8 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
   // Log the error and cleanly shut down the server
   server.close(() => {
-    throw new Error('Server shutdown due to unhandled rejection: ' + reason);
+    console.log('Server closed due to unhandled rejection');
+    process.exit(1);
   });
 });
 
